@@ -32,7 +32,12 @@ void loop() {
       String str2 = str.substring(str.indexOf(',') + 1);
 
       String message = str2.substring(0, msgLength.toInt());
-      Serial.println(message);
+      char buf[21];
+      message.toCharArray(buf, 21)
+      Serial.write(buf);
+      serial.flush();
+      free(buf);
+
     }
   }
 }

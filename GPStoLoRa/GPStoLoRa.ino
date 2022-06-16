@@ -26,7 +26,9 @@ void setup()
 
   writeDataToGPS("@GSTP");
   delay(100);
-  writeDataToGPS("@GSOP 1 10000 5000");
+  writeDataToGPS("@GSOP 1 1000 0");
+  delay(100);
+  writeDataToGPS("@GNS 7");
   delay(100);
   writeDataToGPS("@GSR");
   delay(100);
@@ -37,12 +39,11 @@ void setup()
 void loop()
 {
   // This sketch displays information every time a new sentence is correctly encoded.
-  while (gpsSerial.available() > 0)
+  while (gpsSerial.available() > 0) {
     if (gps.encode(gpsSerial.read())) {
       displayInfo();
-    } else {
-      sendLoraData("41.032532,21.339915|", 2);
     }
+  }
 
   if (millis() > 5000 && gps.charsProcessed() < 10)
   {
